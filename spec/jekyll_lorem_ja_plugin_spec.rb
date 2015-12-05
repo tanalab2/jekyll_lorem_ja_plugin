@@ -6,7 +6,7 @@ describe JekyllLoremJaPlugin do
     expect(JekyllLoremJaPlugin::VERSION).not_to be nil
   end
 
-  it 'render loremja_word' do
+  it 'render loremja' do
     expect(Liquid::Template.parse("{% loremja_word  %}").render.size).to be >= 2
     expect(Liquid::Template.parse("{% loremja_words  %}").render.size).to be >= 2
     expect(Liquid::Template.parse("{% loremja_words 5  %}").render.size).to be >= (2*5)

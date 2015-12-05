@@ -1,36 +1,118 @@
 # JekyllLoremJaPlugin
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/jekyll_lorem_ja_plugin`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Jekyll 用の日本語 lorem タグです。
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'jekyll_lorem_ja_plugin'
+ group :jekyll_plugins do
+   gem "jekyll_lorem_ja_plugin"
+ end
 ```
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
-Or install it yourself as:
+Or In your _config.yml file, add a new array with the key gems and the values of the gem names of the plugins you’d like to use. An example:
 
-    $ gem install jekyll_lorem_ja_plugin
+```yml
+  gems: [jekyll_lorem_ja_plugin]
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+以下のタグを提供します。
 
-## Development
++ {% loremja_word %} 1語出力する
++ {% loremja_words 語数 %} 引数指定した語数分の語を出力する。
++ {% loremja_sentence %} 1文を出力する。
++ {% loremja_sentences 文数 %} 引数指定した文数分の文を出力する。
++ {% loremja_paragraph %} 1段落を出力する。
++ {% loremja_paragraphs 段落数 %} 指定した段落数分の段落を出力する。
++ {% loremja_date %} 任意の年月日を出力する。
++ {% loremja_image 幅x高さ %} 指定した幅、高さ分(単位:ピクセル)の画像を示すURLを表示する。
++ {% loremja_reload リソース名 %} 指定したリソース名の文書リソースを有効化します。組み込みのリソース名は kazehakase(坂口安吾「風博士」)とchuumon_no_ooi_ryouriten(宮沢賢治「注文の多い料理店」)があり、初期の文書リソースは kazehakase である。
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake rspec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+## Example
 
-## Contributing
+デフォルトのkazehakase(坂口安吾「風博士」)の文書リソースを利用した場合、
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/jekyll_lorem_ja_plugin.
+``` html
+<h1>{%  loremja_date %}</h1>
+<img src="{%  loremja_image 200x200 %}"/>
+<h1>{%  loremja_word %}</h1>
+<h2>{%  loremja_words 5 %}</h2>
+<p>{%  loremja_sentence %}</p>
+<p>{%  loremja_sentences 3 %}</p>
+{%  loremja_paragraph %}
+{%  loremja_paragraphs 3 %}
+```
 
+以下のように出力されます。
+
+``` html
+<h1>2009年01月09日</h1>
+<img src="http://placehold.it/200x200"/>
+<h1>風博士の遺書</h1>
+<h2>何となれば姿が見えないではない乎</h2>
+<p>ああ三度冷静なること扇風機の如き諸君よ、かの憎むべき蛸博士は何等の愛なくして余の妻を奪ったのである。</p>
+<p>偉大なる博士ならびに偉大なる博士等の描く旋風に対照して、これ程ふさわしい少女は稀にしか見当らないのである。
+尚疑わんとせば諸君よ、巴里府モンマルトル三番地、Bis, Perruquier ショオブ氏に訊き給え。
+実にこれ歴史の幽玄を冒涜するも甚だしいではないか。</p>
+<p>諸君、目前に露出する無毛赤色の怪物を認めた時に、余は実に万感胸にせまり、溢れ出る涙を禁じ難かったのである。
+流石に花嫁は驚くような軽率はしなかったけれど、僕は内心穏かではなかったのである。
+もしも諸君が仏蘭西、西班牙両国の国境をなすピレネエ山脈をさまようならば、諸君は山中に散在する小部落バスクに逢着するのである。
+今を距ること四十八年前のことなり、二人の日本人留学生によって鬘の購われたることを記憶せざるや。</p>
+<p>諸君は、東京市某町某番地なる風博士の邸宅を御存じであろう乎？
+偉大なる博士は甚だ周章て者であったのである。</p><p>余の力を以てして、彼の悪略に及ばざることすでに明白なり矣。
+これ余の研究完成することなくしては、地球の怪談として深く諸氏の心胆を寒からしめたに相違ない。
+もしも偉大なる博士は間違えて外の人に結婚を申し込んでいるのかも知れない。
+余の力を以てして、彼の悪略に及ばざることすでに明白なり矣。
+なんとなれば、その犯行は奇想天外にして識者の常識を肯んぜしめず、むしろ余に対して誣告の誹を発せしむる憾みあるからである。</p><p>諸君、目前に露出する無毛赤色の怪物を認めた時に、余は実に万感胸にせまり、溢れ出る涙を禁じ難かったのである。
+そのために、余は空気の如く彼の寝室に侵入することが出来たのである。</p>
+```
+
+chuumon_no_ooi_ryouriten(宮沢賢治「注文の多い料理店」)の文書リソースを利用した場合、
+
+``` html
+{% loremja_reload chuumon_no_ooi_ryouriten %}
+<h1>{%  loremja_date %}</h1>
+<img src="{%  loremja_image 200x200 %}"/>
+<h1>{%  loremja_word %}</h1>
+<h2>{%  loremja_words 5 %}</h2>
+<p>{%  loremja_sentence %}</p>
+<p>{%  loremja_sentences 3 %}</p>
+{%  loremja_paragraph %}
+{%  loremja_paragraphs 3 %}
+```
+
+以下のように出力されます。
+
+``` html
+<h1>2008年10月13日</h1>
+<img src="http://placehold.it/200x200"/>
+<h1>山猫軒</h1>
+<h2>きっとよほど偉い人たちが、たびたび来るんだ</h2>
+<p>早く何か暖いものでもたべて、元気をつけて置かないと、もう途方もないことになってしまうと、二人とも思ったのでした。</p>
+<p>鹿の黄いろな横っ腹なんぞに、二三発お見舞もうしたら、ずいぶん痛快だろうねえ。
+なるほど、鉄砲を持ってものを食うという法はない。
+扉のすぐ横には黒塗りの立派な金庫も、ちゃんと口を開けて置いてありました。</p>
+<p>二人は大歓迎というので、もう大よろこびです。
+二人はめがねをはずしたり、カフスボタンをとったり、みんな金庫のなかに入れて、ぱちんと錠をかけました。
+見たまえ、東京の大きな料理屋だって大通りにはすくないだろう
+いや、わざわざご苦労です。
+早く何か暖いものでもたべて、元気をつけて置かないと、もう途方もないことになってしまうと、二人とも思ったのでした。</p>
+<p>けれどももしここへあいつらがはいって来なかったら、それはぼくらの責任だぜ。
+早く何か暖いものでもたべて、元気をつけて置かないと、もう途方もないことになってしまうと、二人とも思ったのでした。
+そしてそのわきに鏡がかかって、その下には長い柄のついたブラシが置いてあったのです。
+鍵穴の眼玉はたちまちなくなり、犬どもはううとうなってしばらく室の中をくるくる廻っていましたが、また一声</p><p>なるほど、鉄砲を持ってものを食うという法はない。
+親方がもうナフキンをかけて、ナイフをもって、舌なめずりして、お客さま方を待っていられます。
+ここの主人はじつに用意｜周到だね。
+室のなかがあんまり暖いとひびがきれるから、その予防なんだ。
+二人は鉄砲をはずし、帯皮を解いて、それを台の上に置きました。</p><p>けれどももしここへあいつらがはいって来なかったら、それはぼくらの責任だぜ。
+くるくるまわって、それからどたっと倒れるだろうねえ。</p>
+```
